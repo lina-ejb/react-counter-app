@@ -1,0 +1,94 @@
+html, body {
+    background-color: #222222;
+}
+.limitedCounterValue {
+    color: red;
+    font-size: 23px;
+}
+.outputCounterValue {
+    color: #00d8ff;
+    font-size: 22px;
+}
+.countContainer {
+    width: 350px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 45%;
+    margin: 20% auto;
+    background-color: #222222;
+    border-radius: 8px;
+    padding: 3rem;
+    border: 3px solid rgb(0, 216, 255);
+
+}
+.buttonContainer {
+    display: flex;
+    border: 3px solid rgb(0, 216, 255);
+    border-radius: 8px;
+    padding: 5px;
+    width: 100%;
+    justify-content: space-evenly;
+    margin: 15%;
+}
+.button {
+    padding: 10px 30px;
+    font-size: 25px;
+    background-color: #00d8ff;
+    color: #222222;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+}
+.disabledButton {
+    padding: 10px 30px;
+    font-size: 25px;
+    background-color: #7d8e94;
+    color: #222222;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+}
+.container {
+    display: flex;
+}
+
+.settingValue {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    font-size: 20px;
+    color: #00d8ff;
+    font-weight: bold;
+}
+
+span {
+    font-size: 20px;
+    color: #00d8ff;
+    font-weight: bold;
+}
+.errorInput {
+    background-color: #fce4e4;
+    border: 2px solid red;
+    font-weight: bold;
+    font-size: 13px;
+    text-align: center;
+    outline: none;
+    border-radius: 5px;
+
+}
+input {
+    text-align: center;
+    font-weight: bold;
+    font-size: 13px;
+    outline: none;
+    border: 2px solid #00d8ff;
+    border-radius: 5px;
+    padding: 5px;
+
+}
+.errorValue {
+    color: red;
+}
