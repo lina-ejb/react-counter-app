@@ -1,4 +1,5 @@
 import React from 'react';
+import s from './Counter.module.css'
 
 type TitleCounterType = {
     disabledButton: boolean
@@ -30,7 +31,7 @@ export const TitleCounter: React.FC<TitleCounterType> = ({
 
     }
     return (
-        <div>
+        <div className={s.a}>
               <span className={errorBoxClass}
               >
                     {titleCounter()}

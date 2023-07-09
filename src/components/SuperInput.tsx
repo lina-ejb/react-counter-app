@@ -1,8 +1,8 @@
 import React, {ChangeEvent} from 'react';
 
 type SuperInputType = {
-    value?: any
-    className: any
+    value?: string
+    className: string
     id: string
     onChange?: (e: ChangeEvent<HTMLInputElement>) => void
 }

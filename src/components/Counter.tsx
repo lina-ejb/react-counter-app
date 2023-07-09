@@ -10,8 +10,6 @@ type CounterPropsType = {
     startValue: number
     maxValue: number
     disabledButton: boolean
-
-
 }
 
 export const Counter: React.FC<CounterPropsType> = ({
@@ -31,7 +29,7 @@ export const Counter: React.FC<CounterPropsType> = ({
     const isCorrectValue = startValue < maxValue && startValue > -1
     const incButtonClass = isMaxValueCount || !disabledButton ? s.disabledButton : s.button
     const resButtonClass = isIncorrectInputValue || !disabledButton ? s.disabledButton : s.button
-
+    const disabledIncButton = isMaxValueCount || isIncorrectValue
     // !disabledButton кнопка не задизейблина
 
     return (
@@ -48,7 +46,7 @@ export const Counter: React.FC<CounterPropsType> = ({
             </div>
             <div className={s.buttonContainer}>
                 <CounterButton
-                    disabled={isMaxValueCount || isIncorrectValue}
+                    disabled={disabledIncButton}
                     onClick={addCounter}
                     name={'inc'}
                     className={incButtonClass}/>

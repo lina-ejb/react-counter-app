@@ -39,8 +39,7 @@ const CounterContainer = () => {
         localStorage.setItem('counter-button', JSON.stringify(disabledButton))
 
     }, [startValue, maxValue, disabledButton])
-    // console.log(maxValue)
-    // console.log(startValue)
+
 
 // increase counter
     const addCounter = () => {
