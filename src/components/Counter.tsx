@@ -2,35 +2,35 @@ import React from 'react';
 import {CounterButton} from "./CounterButton";
 import s from './Counter.module.css'
 import {TitleCounter} from "./TitleCounter";
-
-type CounterPropsType = {
-    count: number
-    addCounter: () => void
-    resCounter: () => void
-    startValue: number
-    maxValue: number
-    disabledButton: boolean
-}
-
-export const Counter: React.FC<CounterPropsType> = ({
-                                                        count,
-                                                        addCounter,
-                                                        resCounter,
-                                                        startValue,
-                                                        maxValue,
-                                                        disabledButton,
+import {useDispatch, useSelector} from "react-redux";
+import {StateStoreType} from "./state/store";
+import {incActionCreator, resActionCreator, StateType} from "./state/counter-reducer";
+import {counterSelector} from "./selector/counterSelector";
 
 
-                                                    }) => {
-    const isMaxValueCount = count === maxValue // максимальное значение счетчика
-    const isIncorrectValue = startValue >= maxValue
-    const isIncorrectInputValue = startValue < 0 || isIncorrectValue
+export const Counter = () => {
+
+    const dispatch = useDispatch()
+    const count = useSelector<StateStoreType, StateType>(counterSelector)
+
+    const addCounter = () => {
+        if (count.startValue < count.maxValue) {
+            dispatch(incActionCreator())
+        }
+    }
+
+    const resCounter = () => {
+        dispatch(resActionCreator())
+    }
+
+    const isMaxValueCount = count.count === count.maxValue // максимальное значение счетчика
+    const isIncorrectValue = count.startValue >= count.maxValue
+    const isIncorrectInputValue = count.startValue < 0 || isIncorrectValue
     const errorBoxClass = isIncorrectInputValue || isMaxValueCount ? s.limitedCounterValue : s.outputCounterValue
-    const isCorrectValue = startValue < maxValue && startValue > -1
-    const incButtonClass = isMaxValueCount || !disabledButton ? s.disabledButton : s.button
-    const resButtonClass = isIncorrectInputValue || !disabledButton ? s.disabledButton : s.button
+    const isCorrectValue = count.startValue < count.maxValue && count.startValue > -1
+    const incButtonClass = isMaxValueCount || !count.disabledButton ? s.disabledButton : s.button
+    const resButtonClass = isIncorrectInputValue || !count.disabledButton ? s.disabledButton : s.button
     const disabledIncButton = isMaxValueCount || isIncorrectValue
-    // !disabledButton кнопка не задизейблина
 
     return (
         <div className={s.countContainer}>
@@ -40,8 +40,8 @@ export const Counter: React.FC<CounterPropsType> = ({
                     correctValue={isCorrectValue}
                     incorrectInputValue={isIncorrectInputValue}
                     errorBoxClass={errorBoxClass}
-                    disabledButton={disabledButton}
-                    count={count}
+                    disabledButton={count.disabledButton}
+                    count={count.count}
                 />
             </div>
             <div className={s.buttonContainer}>

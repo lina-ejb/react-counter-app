@@ -2,51 +2,46 @@ import React, {ChangeEvent} from 'react';
 import {CounterButton} from "./CounterButton";
 import s from "./Counter.module.css";
 import {SuperInput} from "./SuperInput";
+import {counterSelector} from "./selector/counterSelector";
+import {useDispatch, useSelector} from "react-redux";
+import {
+    changeMaxValueAC,
+    changeStartValueAC,
+    disabledButtonAC,
+    disabledCounterButtonAC,
+    StateType
+} from "./state/counter-reducer";
+import {StateStoreType} from "./state/store";
 
 type CounterSettingsType = {
-    startValue: number
-    maxValue: number
-    setStartValue?: (e: number) => void
-    setMaxValue?: (e: number) => void
-    setCount: (value: number) => void
-    setDisabledButton: (value: boolean) => void
-    disabledButton: boolean
-    count:number
+
 }
 
-export const CounterSettings: React.FC<CounterSettingsType> = ({
-                                                                   startValue,
-                                                                   maxValue,
-                                                                   setStartValue,
-                                                                   setMaxValue,
-                                                                   setCount,
-                                                                   disabledButton,
-                                                                   setDisabledButton,
-                                                                  ...rest
-                                                               }) => {
+export const CounterSettings: React.FC<CounterSettingsType> = () => {
 
+    const dispatch = useDispatch()
+    const count = useSelector<StateStoreType, StateType>(counterSelector)
 
     const startOnChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
-        if (setStartValue) setStartValue(Number(e.currentTarget.value))
-        setDisabledButton(false)
+        dispatch(changeStartValueAC(Number(e.currentTarget.value)))
+        dispatch(disabledCounterButtonAC())
     }
 
     const maxOnChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
-        if (setMaxValue) setMaxValue(Number(e.currentTarget.value))
-        setDisabledButton(false)
+        dispatch(changeMaxValueAC(Number(e.currentTarget.value)))
+        dispatch(disabledCounterButtonAC())
     }
 
     const valueToCounterHandler = () => {
-        setCount(startValue)
-        setDisabledButton(!disabledButton) // button disabled
+        dispatch(disabledButtonAC())
 
     }
 
-    const isIncorrectValue = startValue >= maxValue
-    const isIncorrectInputValue = startValue < 0 || isIncorrectValue
+    const isIncorrectValue = count.startValue >= count.maxValue
+    const isIncorrectInputValue = count.startValue < 0 || isIncorrectValue
     const inputClassName = isIncorrectValue ? s.errorInput : s.input
     const startInputCLassName = isIncorrectInputValue ? s.errorInput : s.input
-    const buttonSettingClassName = disabledButton || isIncorrectInputValue ? s.disabledButton : s.button
+    const buttonSettingClassName = count.disabledButton || isIncorrectInputValue ? s.disabledButton : s.button
 
     return (
         <div className={s.countContainer}>
@@ -57,7 +52,7 @@ export const CounterSettings: React.FC<CounterSettingsType> = ({
                 </label>
                 <SuperInput
                     id={'maxValue'}
-                    value={(maxValue).toString()}
+                    value={(count.maxValue).toString()}
                     onChange={maxOnChangeCallback}
                     className={inputClassName}
 
@@ -68,7 +63,7 @@ export const CounterSettings: React.FC<CounterSettingsType> = ({
                 </label>
                 <SuperInput
                     id={'startValue'}
-                    value={(startValue).toString()}
+                    value={(count.startValue).toString()}
                     onChange={startOnChangeCallback}
                     className={startInputCLassName}
                 />
@@ -78,7 +73,7 @@ export const CounterSettings: React.FC<CounterSettingsType> = ({
                     name={'set'}
                     className={buttonSettingClassName}
                     onClick={valueToCounterHandler}
-                    disabled={disabledButton}
+                    disabled={count.disabledButton}
                 />
             </div>
 

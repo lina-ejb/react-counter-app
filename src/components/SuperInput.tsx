@@ -1,28 +1,23 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 
-type SuperInputType = {
-    value?: string
-    className: string
-    id: string
-    onChange?: (e: ChangeEvent<HTMLInputElement>) => void
+
+type SuperInputPropsType = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
+    value: string
 }
 
-export const SuperInput: React.FC<SuperInputType> = ({
-                                                         value,
-                                                         id,
-                                                         onChange,
-                                                         className
-                                                     }) => {
+export const SuperInput: React.FC<SuperInputPropsType> = ({
+                                                              value,
+                                                              ...rest
+                                                          }) => {
+
     return (
-        <div>
+        <div >
+
             <input
-                type={"number"}
-                id={id}
-                onChange={onChange}
+                type={'number'}
                 value={value}
-                className={className}
+                {...rest}
             />
         </div>
     );
 };
-
