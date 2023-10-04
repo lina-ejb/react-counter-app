@@ -13,11 +13,7 @@ import {
 } from "./state/counter-reducer";
 import {StateStoreType} from "./state/store";
 
-type CounterSettingsType = {
-
-}
-
-export const CounterSettings: React.FC<CounterSettingsType> = () => {
+export const CounterSettings = () => {
 
     const dispatch = useDispatch()
     const count = useSelector<StateStoreType, StateType>(counterSelector)
